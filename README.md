@@ -14,6 +14,7 @@ Add this to your apps.yaml
   ip: ***.***.***.***
   ```
   the token is a long lived token from HA (https://www.atomicha.com/home-assistant-how-to-generate-long-lived-access-token-part-1/)
+  
   the ip is the ip address of your HA instance (192.168.1.101)
 
 The app checks every 5 minutes but you can manually call it via an automation ex.
