@@ -11,6 +11,8 @@ class zha_check(hass.Hass):
   def initialize(self):
     self.token = self.args['token']      
     self.addr = "ws://" + self.args['ip'] + ":8123/api/websocket"
+    self.max = self.args['max']
+    self.print = self.args['print']
 
     self.listen_event(self.ZHAmonitor, "ZHAcheck")
     #call this from an HA automation by action: - event: ZHAcheck
@@ -26,7 +28,7 @@ class zha_check(hass.Hass):
   def ZHAdump (self): 
     count = 0
     last_seen = {}
-    max_time = 7200 #120 minutes
+    max_time = self.max
     now = datetime.datetime.now()
 
     ws = create_connection(self.addr)
@@ -54,8 +56,9 @@ class zha_check(hass.Hass):
         last_seen[str(device["user_given_name"])] = last_dat3
         count = count + 1
 
-    last_seen['friendly_name'] = 'Last Seen ZHA'
-    last_seen['icon'] = 'mdi:message-alert-outline'
+    if self.print > 0:
+        last_seen['friendly_name'] = 'Last Seen ZHA'
+        last_seen['icon'] = 'mdi:message-alert-outline'
     self.set_state('sensor.zha_last_seen', replace=True, state=count, attributes=last_seen)
     #this will create a sensor called sensor.last_seen_zha with a list of attributes containing the name and last_seen time of each sensor not reporting for more then 120 minutes.
     #I then have an automation that emails me an alert when this sensor is greater than 0
