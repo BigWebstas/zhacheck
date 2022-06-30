@@ -1,0 +1,7 @@
+zhacheck:
+  module: zhacheck
+  class: zha_check
+  token: ***token***
+  ip: 10.1.1.1
+  print: 1
+  max: 7200
