@@ -54,8 +54,8 @@ class zha_check(hass.Hass):
         last_seen[str(device["user_given_name"])] = last_dat3
         count = count + 1
 
-#    last_seen['friendly_name'] = 'Last Seen ZHA'
-#    last_seen['icon'] = 'mdi:message-alert-outline'
+    last_seen['friendly_name'] = 'Last Seen ZHA'
+    last_seen['icon'] = 'mdi:message-alert-outline'
     self.set_state('sensor.zha_last_seen', replace=True, state=count, attributes=last_seen)
-    #this will create a sensor called sensor.last_seen_zha with a list of attributes containing the name and last_seen time of each sensor not reporting for more then 90 minutes.
+    #this will create a sensor called sensor.last_seen_zha with a list of attributes containing the name and last_seen time of each sensor not reporting for more then 120 minutes.
     #I then have an automation that emails me an alert when this sensor is greater than 0
