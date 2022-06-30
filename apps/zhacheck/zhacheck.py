@@ -17,11 +17,13 @@ class zha_check(hass.Hass):
     self.listen_event(self.ZHAmonitor, "ZHAcheck")
     #call this from an HA automation by action: - event: ZHAcheck
 
-    handle = self.run_every(self.ZHAmonitor, 'now+60', 60*5)
+    handle = self.run_every(self.ZHAdumptime, 'now+60', 60*5)
     #run every 5 mins regardless of event
     
     self.ZHAdump()
-
+    
+  def ZHAdumptime(self, kwargs):
+    self.ZHAdump()
   def ZHAmonitor (self, event_name, data, kwargs): 
     self.ZHAdump()
 
